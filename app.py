@@ -47,15 +47,9 @@ def message_text(event):
     ### function reply_token
     Reply_token = event.reply_token #### reply token
     text_fromUser = event.message.text ### ข้อความจาก ยูสเซอ
+    print(text_fromUser)
 
-    # ### set ข้อความ ประเภท text
-    # text_tosend_1 = TextSendMessage(text='uncle engineer',quick_reply=None)
-    # text_tosend_2 = TextSendMessage(text='uncle engineer 02',quick_reply=None)
-    # #### set ข้อความ ประเภท image
-    # image_message_1 = ImageSendMessage(
-    #     original_content_url='https://img.freepik.com/free-vector/infographics_23-2148060880.jpg?size=338&ext=jpg'
-    #     ,preview_image_url='https://img.freepik.com/free-vector/infographics_23-2148060880.jpg?size=338&ext=jpg'
-    # )
+    #### ตรวจสอบ ว่า ภายในข้อความของยูส มีคำว่า เช็คราคา อยู่หรือไม่ ถ้าใช้ บอทจะตอบกลับเป็น flex message
     if 'เช็คราคา' in text_fromUser:
         from Resource.bxAPI import GetBxPrice
         from random import randint
@@ -71,6 +65,23 @@ def message_text(event):
         flex = SetMenuMessage_Object(flex)
         send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
 
+    ##### check newsapi
+    elif 'เช็คข่าวสาร' in text_fromUser:
+        text = TextSendMessage(text='ท่านได้ทำการเลือกเมนู เช็คข่าวสาร') #setup text message
+        
+        from Resource.FlexMessage import news_setbubble 
+        from Resource.reply import SetMenuMessage_Object , send_flex
+        from Resource.newsAPI import get_cnn_news
+
+        data = get_cnn_news()
+        flex = news_setbubble(data['title'],data['description'],data['url'],data['image_url'])
+        
+        text = TextSendMessage(text='รายงานข่าวสารสำหรับ CNN ล่าสุด').as_json_dict()
+
+        msg = SetMenuMessage_Object([text,flex])
+
+        send_flex(Reply_token,file_data = msg,bot_access_key = channel_access_token)
+        
 
     else:
         text_list = [
@@ -113,6 +124,7 @@ def RegisRichmenu(event):
 
 if __name__ == "__main__":
     app.run(port=200)
+    #heroku cloud server https://uncletut01.herokuapp.com//webhook
 
 
 
