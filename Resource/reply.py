@@ -74,7 +74,14 @@ def PushMessage(userid, TextMessage, Line_Access_Token):
 
 def SetMenuMessage_Object(Message_data,Quick_Reply = False):
     file_data = {"replyToken":'', "messages": []}
-    data = file_data['messages'].append(Message_data)
+
+    if type(Message_data) is list:
+        for message in Message_data:
+            data = file_data['messages'].append(message)
+
+    else :
+        data = file_data['messages'].append(Message_data)
+        
     return file_data
 
 def send_flex(reply_token,file_data,bot_access_key):
