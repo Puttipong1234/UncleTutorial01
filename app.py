@@ -46,7 +46,7 @@ def message_text(event):
 
     ### function reply_token
     Reply_token = event.reply_token #### reply token
-    text_fromUser = event.message.text ### ข้อความจาก ยูสเซอ
+    text_fromUser = event.message.text ### ข้อความจาก ยูสเซอ line
     print(text_fromUser)
 
     #### ตรวจสอบ ว่า ภายในข้อความของยูส มีคำว่า เช็คราคา อยู่หรือไม่ ถ้าใช้ บอทจะตอบกลับเป็น flex message
@@ -84,20 +84,25 @@ def message_text(event):
         
 
     else:
-        text_list = [
-            'ฉันไม่เข้าใจที่คุณพูดค่ะ กรุณาลองใหม่อีกครั้งนะค่ะ',
-            'ขออภัยค่ะ ฉันไม่เข้าใจจริงๆค่ะ ลองใหม่นะค่ะ',
-            'ขอโทษต่ะ ไม่ทราบว่า มีความหมายอย่างไรค่ะ',
-            'กรุณาลองพิมใหม่ได้ไหมค่ะ'
-        ]
+        message = '' ### message ที่เราจะส่งกลับไปให้ยูสเสอ
+        from dialogflow_uncle import detect_intent_texts
+        project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
+        session_id = event.source.user_id  ## get user id
+        message = detect_intent_texts(project_id,session_id,text_fromUser,'th')
+        
+        text = []
+        user_data = None
 
-        from random import choice
+        for i in message['fulfillment_messages']:### เพิ่มจากในคลิบ
+            txt = TextSendMessage(text=i)### เพิ่มจากในคลิบ
+            text.append(txt)### เพิ่มจากในคลิบ
 
-        text_data = choice(text_list)
+        if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes':
+            user_data = TextSendMessage(text=str(message['parameters']))### เพิ่มจากในคลิบ
+            text.append(user_data)### เพิ่มจากในคลิบ
+        
+        line_bot_api.reply_message(Reply_token,messages=text)
 
-        text = TextSendMessage(text=text_data)
-
-        line_bot_api.reply_message(Reply_token,text)
 
 
 @handler.add(FollowEvent)
