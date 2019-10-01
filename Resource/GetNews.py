@@ -1,4 +1,4 @@
-from .newsapi import NewsApiClient
+from newsapi.newsapi_client import NewsApiClient
 def get_cnn_news(): 
 
     newsapi = NewsApiClient(api_key='ff705166e5c34413962cabd6d1b3d66f')
