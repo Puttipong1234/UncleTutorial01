@@ -16,12 +16,12 @@ def get_cnn_news():
 
     return news_data
 
-if __name__ == "__main__":
-    news = get_cnn_news()
-    # print('title is ' + news['title']) ## title
-    # print('description is ' + news['descript]) ## description
-    # print('url is ' +news[2]) ## url
-    print(news['description'])
+# if __name__ == "__main__":
+#     news = get_cnn_news()
+#     print('title is ' + news['title']) ## title
+#     print('description is ' + news['descript]) ## description
+#     print('url is ' +news[2]) ## url
+#     print(news['description'])
 
 
 
