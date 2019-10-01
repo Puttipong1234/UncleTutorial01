@@ -71,7 +71,7 @@ def message_text(event):
         
         from Resource.FlexMessage import news_setbubble 
         from Resource.reply import SetMenuMessage_Object , send_flex
-        from Resource.newsAPI import get_cnn_news
+        from Resource.GetNews import get_cnn_news
 
         data = get_cnn_news()
         flex = news_setbubble(data['title'],data['description'],data['url'],data['image_url'])
