@@ -1,5 +1,4 @@
 from newsapi import NewsApiClient
-
 def get_cnn_news(): 
 
     newsapi = NewsApiClient(api_key='ff705166e5c34413962cabd6d1b3d66f')
@@ -16,12 +15,12 @@ def get_cnn_news():
 
     return news_data
 
-# if __name__ == "__main__":
-#     news = get_cnn_news()
-#     print('title is ' + news['title']) ## title
-#     print('description is ' + news['descript]) ## description
-#     print('url is ' +news[2]) ## url
-#     print(news['description'])
+if __name__ == "__main__":
+    news = get_cnn_news()
+    # print('title is ' + news['title']) ## title
+    # print('description is ' + news['description']) ## description
+    # print('url is ' +news[2]) ## url
+    print(news['description'])
 
 
 
