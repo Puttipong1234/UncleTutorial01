@@ -1,18 +1,42 @@
-richdata = { 
+richdata = {
   "size": {
     "width": 2500,
-    "height": 843
+    "height": 1686
   },
   "selected": True,
   "name": "Rich Menu 1",
-  "chatBarText": "เมนูหลัก",
+  "chatBarText": "Bulletin",
   "areas": [
     {
       "bounds": {
-        "x": 21,
+        "x": 0,
         "y": 8,
-        "width": 801,
-        "height": 823
+        "width": 1664,
+        "height": 837
+      },
+      "action": {
+        "type": "message",
+        "text": "สนใจคอสเรียนไพทอน"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1672,
+        "y": 8,
+        "width": 811,
+        "height": 828
+      },
+      "action": {
+        "type": "message",
+        "text": "ขอบัตรนักเรียนหน่อยครับ"
+      }
+    },
+    {
+      "bounds": {
+        "x": 17,
+        "y": 853,
+        "width": 802,
+        "height": 811
       },
       "action": {
         "type": "message",
@@ -21,10 +45,10 @@ richdata = {
     },
     {
       "bounds": {
-        "x": 852,
-        "y": 13,
-        "width": 801,
-        "height": 813
+        "x": 845,
+        "y": 853,
+        "width": 802,
+        "height": 811
       },
       "action": {
         "type": "message",
@@ -33,15 +57,14 @@ richdata = {
     },
     {
       "bounds": {
-        "x": 1686,
-        "y": 4,
-        "width": 797,
-        "height": 831
+        "x": 1672,
+        "y": 870,
+        "width": 820,
+        "height": 798
       },
       "action": {
-        "type": "postback",
-        "text": "",
-        "data": "ถามเรื่องทั่วไป"
+        "type": "message",
+        "text": "ไหนขอทดสอบความรู้หน่อยซิ"
       }
     }
   ]
@@ -93,6 +116,6 @@ def CreateRichMenu(ImageFilePath,Rich_json,channel_access_token):
 
 
 
-CreateRichMenu(ImageFilePath='Resource\Slide1.jpg',Rich_json=richdata,channel_access_token=channel_access_token)
+CreateRichMenu(ImageFilePath='Resource/uncletut01.jpg',Rich_json=richdata,channel_access_token=channel_access_token)
 
 

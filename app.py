@@ -2,7 +2,7 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort , send_from_directory
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -23,6 +23,9 @@ channel_access_token = '7am3KDdBRsl/TiNrPKEhb/43c4RQyaLV52hrxfmeHxQiGyBkOrObnDh9
 line_bot_api = LineBotApi(channel_access_token) ##ตัวส่งapi
 handler = WebhookHandler(channel_secret)
 
+### database ชั่วคราว
+Card = []
+
 #### แก้ route
 @app.route("/webhook", methods=['POST'])
 def callback():
@@ -32,7 +35,6 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -81,7 +83,23 @@ def message_text(event):
         msg = SetMenuMessage_Object([text,flex])
 
         send_flex(Reply_token,file_data = msg,bot_access_key = channel_access_token)
-        
+    
+
+    ### กรณีเข้ามาเอาบัตรนักเรียน
+    elif 'บัตรนักเรียน' in text_fromUser :
+        uid = event.source.user_id
+        for i in Card:
+            if str(Card[i]['uid']) == str(uid):
+                from MessageTemplate.Imgmap import GetStudentCard
+                from Resource.reply import SetMenuMessage_Object , send_flex
+                flex = SetMenuMessage_Object(GetStudentCard(Card[i]['courses']))
+                send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
+            
+            else:
+                text = TemplateSendMessage(text='กรุณาสมัคร/ลงทะเบียนคลาสเรียน กดเมนูด้านล่างเพื่อลงทะเบียน')
+                res = line_bot_api.reply_message(Reply_token,messages=text)
+
+
 
     else:
         message = '' ### message ที่เราจะส่งกลับไปให้ยูสเสอ
@@ -97,11 +115,68 @@ def message_text(event):
             txt = TextSendMessage(text=i)### เพิ่มจากในคลิบ
             text.append(txt)### เพิ่มจากในคลิบ
 
-        if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes':
-            user_data = TextSendMessage(text=str(message['parameters']))### เพิ่มจากในคลิบ
-            text.append(user_data)### เพิ่มจากในคลิบ
+        ### sumarize message
+        if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes' or 'บัตรนักเรียน' in text_fromUser and askforCard[session_id] is None :
+            from google.protobuf.json_format import MessageToDict
+            data = message['parameters']
+            data = MessageToDict(data)
+            # print(data)
+
+            from MessageTemplate.Imgmap import GetStudentCard
+            from Resource.reply import SetMenuMessage_Object , send_flex
+
+
+            ####เนื้องจากการส่งข้อความแบบ flex2019 SDK python ยังไม่รองรับทำให้เราต้องกลับมาส่งแบบ manual
+            msg = []
+            for i in text:
+                Dict = i.as_json_dict()
+                msg.append(Dict)
+            msg.append(GetStudentCard(data['courses']))
+            flex = SetMenuMessage_Object(msg)
+            send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
+            
+            ### Keep data to database
+            data = {
+                'uid':session_id,
+                'month':data['month'],
+                'where':data['where'],
+                'courses':data['courses']
+            }
+            Card.append(data)
         
-        line_bot_api.reply_message(Reply_token,messages=text)
+
+
+        
+        ## adding imagemap message
+        elif message['action'] == 'Uncleregister':
+            from MessageTemplate.Imgmap import selectCourse
+            imagemap = Base.get_or_new_from_json_dict(selectCourse(),ImagemapSendMessage)
+            text.append(imagemap)
+            ### prepare imagemap message to send 
+
+        elif message['action'] == 'Uncleregister.Uncleregister-custom':
+            from MessageTemplate.Imgmap import selectWhere
+            imagemap = Base.get_or_new_from_json_dict(selectWhere(),ImagemapSendMessage)
+            text.append(imagemap)
+            ### prepare Imagemap message to send
+
+        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom':
+            from MessageTemplate.Imgmap import selectTime
+            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
+            text.append(msg)
+        
+        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom':
+            from MessageTemplate.Imgmap import selectTime
+            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
+            text.append(msg)
+        
+        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom':
+            from MessageTemplate.Imgmap import selectTime
+            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
+            text.append(msg)
+        
+        res = line_bot_api.reply_message(Reply_token,messages=text)
+        print(res)
 
 
 
@@ -112,22 +187,85 @@ def RegisRichmenu(event):
     ### setup quick reply button
     button_1 = QuickReplyButton(action=MessageAction(label='เช็คราคา',text='เช็คราคา'))
     button_2 = QuickReplyButton(action=MessageAction(label='เช็คข่าวสาร',text='เช็คข่าวสาร'))
-    qbtn = QuickReply(items=[button_1,button_2])
+    button_3 = QuickReplyButton(action=MessageAction(label='สมัครเรียนไพทอนกับลุง',text='สนใจคอสเรียนไพทอน'))
+
+    qbtn = QuickReply(items=[button_1,button_2,button_3])
     ### text message object
     text = TextSendMessage(text='สวัสดีคุณ  {}  ยินดีต้อนรับสู่บริการแชทบอท'.format(disname))
     text_2 = TextSendMessage(text='กรุณาเลือกเมนูที่ท่านต้องการ',quick_reply = qbtn)
     ### link richmenu
-    line_bot_api.link_rich_menu_to_user(userid,'richmenu-3139e071b8f186e8f616e94d320bfca7')
+    line_bot_api.link_rich_menu_to_user(userid,'richmenu-32639ff3723a0284a8a8e2f59eed2a99')
     ### reply message when user follow
     line_bot_api.reply_message(event.reply_token,messages=[text,text_2])
 
+### รับ date time picker
+@handler.add(PostbackEvent)
+def GetPostback(event):
+    Reply_token = event.reply_token
+    text_fromUser = event.postback.params['datetime']
+    print(text_fromUser)
+
+    month = int(text_fromUser[5:7])
+    print(month)
+
+    import datetime
+
+    monthinteger = month
+
+    month = str(datetime.date(1900, monthinteger, 1).strftime('%B'))
+
+    print (month)
+
+    message = '' ### message ที่เราจะส่งกลับไปให้ยูสเสอ
+    from dialogflow_uncle import detect_intent_texts
+    project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
+    session_id = event.source.user_id  ## get user id
+    message = detect_intent_texts(project_id,session_id,month,'en')
+    
+    text = []
+    user_data = None
+
+    for i in message['fulfillment_messages']:### เพิ่มจากในคลิบ
+        txt = TextSendMessage(text=i)### เพิ่มจากในคลิบ
+        text.append(txt)### เพิ่มจากในคลิบ
+    
+    if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom':
+        from MessageTemplate.Imgmap import summary_msg
+        data = message['parameters']
+        from google.protobuf.json_format import MessageToDict
+        data = MessageToDict(data)
+        when = data['month']
+        where = data['where']
+        course = data['courses']
+        msg = Base.get_or_new_from_json_dict(summary_msg(when,where,course),FlexSendMessage)
+        text.append(msg)### เพิ่มจากในคลิบ
+    
+
+
+    res = line_bot_api.reply_message(Reply_token,messages=text)
 
 
 
 
+
+### serve imagemap
+@app.route('/MessageTemplate/<PICNAME>/1040')
+def getpicbyname(PICNAME):
+    print('PIC : ' + PICNAME)
+    path = 'MessageTemplate'
+    return send_from_directory(path,PICNAME)
+
+### serve simple image
+@app.route('/MessageTemplate/<PICNAME>')
+def getpicbyname_static(PICNAME):
+    print('PIC : ' + PICNAME)
+    path = 'MessageTemplate'
+    return send_from_directory(path,PICNAME)
 
 
 if __name__ == "__main__":
+    os.environ['DIALOGFLOW_PROJECT_ID'] = 'uncletut01-tsijhr'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Credentials.json'
     app.run(port=200)
     #heroku cloud server https://uncletut01.herokuapp.com//webhook
 
