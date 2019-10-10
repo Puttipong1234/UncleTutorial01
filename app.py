@@ -87,7 +87,7 @@ def message_text(event):
 
         send_flex(Reply_token,file_data = msg,bot_access_key = channel_access_token)
     
-    elif 'บัตรสมาชิค' in text_fromUser:
+    elif 'บัตรสมาชิก' in text_fromUser:
         text = TextSendMessage(text='กรุณาแสดงบัตรให้แก่สตาฟ').as_json_dict()
         from MessageTemplate.Imgmap import MemberCard , confirmRegis
         flex1 = MemberCard()
