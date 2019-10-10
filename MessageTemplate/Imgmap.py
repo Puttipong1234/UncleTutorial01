@@ -329,7 +329,7 @@ def summary_msg(when,where,course):
   }
 }
     return msg
-
+#### บัตรสำหรับเข้าเรียน
 def GetStudentCard(course):
     bubble = {
   "type": "bubble",
@@ -556,5 +556,497 @@ def GetStudentCard(course):
 
     return msg
     
+#### กรุณาสมัครนักเรียน
+def PleaseRegister():
+    bubble = {
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "size": "micro",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "color": "#ffffff",
+            "align": "start",
+            "size": "lg",
+            "gravity": "center",
+            "text": "กรุณาลงทะเบียนเพื่อรับบัตรนักเรียน",
+            "wrap": True,
+            "weight": "bold",
+            "style": "normal",
+            "decoration": "underline",
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "สนใจสมัครคอสเรียนไพทอน"
+            }
+          },
+          {
+            "type": "text",
+            "text": "ท่านยังไม่ได้ลงทะเบียนเป็นนักเรียน",
+            "color": "#ffffff",
+            "align": "start",
+            "size": "xs",
+            "gravity": "center",
+            "margin": "lg",
+            "wrap": True
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "width": "70%",
+                "backgroundColor": "#8B0000",
+                "height": "6px"
+              }
+            ],
+            "backgroundColor": "#9FD8E36E",
+            "height": "6px",
+            "margin": "sm"
+          }
+        ],
+        "backgroundColor": "#DC143C",
+        "paddingTop": "19px",
+        "paddingAll": "12px",
+        "paddingBottom": "16px"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "สมัครเรียน",
+                  "text": "สนใจสมัครคอสเรียนไพทอน"
+                },
+                "style": "secondary"
+              }
+            ],
+            "flex": 1
+          }
+        ],
+        "spacing": "md",
+        "paddingAll": "12px"
+      },
+      "styles": {
+        "footer": {
+          "separator": False
+        }
+      }
+    }
+  ]
+}
 
+    msg = {
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {}
+    }
 
+    msg['contents'] = bubble
+
+    return msg
+
+#### กรุณายืนยันการสมัคร
+def confirmRegis():
+      
+    bubble = {
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "คำขอดำเนินการสมัครนักเรียน",
+        "weight": "bold",
+        "color": "#1DB446",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "text": "สมัครนักเรียน",
+        "weight": "bold",
+        "size": "xxl",
+        "margin": "md"
+      },
+      {
+        "type": "text",
+        "text": "กรุณาตรวจสอบ และ ยืนยันการลงทะเบียน",
+        "size": "xs",
+        "color": "#aaaaaa",
+        "wrap": True
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "xxl",
+        "spacing": "lg",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ชื่อ - นามสกุล",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "Puttipong Limsathayurat",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end"
+              }
+            ],
+            "margin": "none"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "อีเมลล์",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 3
+              },
+              {
+                "type": "text",
+                "text": "Puttipong.lims@gmail.com",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end",
+                "flex": 6
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "เบอร์โทรศัพท์",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "0909846075",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "xxl"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "margin": "xxl",
+            "contents": [
+              {
+                "type": "text",
+                "text": "อาชีพ",
+                "size": "sm",
+                "color": "#555555"
+              },
+              {
+                "type": "text",
+                "text": "วิศวกร",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ที่อยู่",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 3
+              },
+              {
+                "type": "text",
+                "text": "บ้านเลขที่ 202/2 เขตหลักสี่ แขวงตลาดบางเขน กรุงเทพ 10210 อาคาร1",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end",
+                "flex": 6,
+                "wrap": True
+              }
+            ],
+            "height": "80px"
+          }
+        ]
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "margin": "lg",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "ยืนยัน",
+              "data": "Data"
+            },
+            "style": "primary",
+            "height": "sm"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "กลับไปแก้ไข",
+              "uri": "line://app/1621618656-D0emwwJN"
+            },
+            "style": "secondary",
+            "height": "sm"
+          }
+        ],
+        "spacing": "md",
+        "paddingAll": "0px"
+      }
+    ]
+  },
+  "styles": {
+    "footer": {
+      "separator": True
+    }
+  }
+}
+
+    msg = {
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {}
+    }
+
+    msg['contents'] = bubble
+
+    return msg
+
+#### รับบัตร member card
+def MemberCard():
+  bubble = {
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "Uncle Engineer Lab MemberShip Card",
+        "weight": "bold",
+        "color": "#1DB446",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "text": "บัตรนักเรียน",
+        "weight": "bold",
+        "size": "3xl",
+        "margin": "md"
+      },
+      {
+        "type": "text",
+        "text": "รับสิทธิพิเศษมากมายเพียงแค่แสดง",
+        "size": "sm",
+        "color": "#aaaaaa",
+        "wrap": True,
+        "align": "start"
+      },
+      {
+        "type": "text",
+        "text": "บัตรนักเรียนให้กับทาง staff",
+        "size": "sm",
+        "color": "#aaaaaa",
+        "wrap": True,
+        "align": "start"
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "xxl",
+        "spacing": "lg",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ชื่อ - นามสกุล",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "Puttipong Limsathayurat",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end"
+              }
+            ],
+            "margin": "none"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "อีเมลล์",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 3
+              },
+              {
+                "type": "text",
+                "text": "Puttipong.lims@gmail.com",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end",
+                "flex": 6
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "เบอร์โทรศัพท์",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "0909846075",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "xxl"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "margin": "xxl",
+            "contents": [
+              {
+                "type": "text",
+                "text": "อาชีพ",
+                "size": "sm",
+                "color": "#555555"
+              },
+              {
+                "type": "text",
+                "text": "วิศวกร",
+                "size": "sm",
+                "color": "#555555",
+                "align": "end"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "lg",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "แก้ไขข้อมูล",
+              "uri": "line://app/1621618656-D0emwwJN"
+            },
+            "style": "secondary",
+            "height": "sm"
+          },
+          {
+            "type": "image",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png",
+            "size": "xxl"
+          }
+        ],
+        "spacing": "md",
+        "paddingAll": "0px"
+      }
+    ]
+  },
+  "styles": {
+    "footer": {
+      "separator": True
+    }
+  }
+}
+
+  msg = {
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {}
+    }
+
+  msg['contents'] = bubble
+
+  return msg

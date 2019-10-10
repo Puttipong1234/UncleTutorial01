@@ -2,7 +2,7 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort , send_from_directory
+from flask import Flask, request, abort , send_from_directory , render_template
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -12,6 +12,8 @@ from linebot.exceptions import (
 
 ### แก้เป็น *
 from linebot.models import *
+
+from Resource.reply import SetMenuMessage_Object , send_flex
 
 app = Flask(__name__)
 
@@ -24,7 +26,9 @@ line_bot_api = LineBotApi(channel_access_token) ##ตัวส่งapi
 handler = WebhookHandler(channel_secret)
 
 ### database ชั่วคราว
-Card = []
+Card = [] ### บัตรสำหรับเข้าเรียน
+Member = [] ### บัตรสมาชิค
+
 
 #### แก้ route
 @app.route("/webhook", methods=['POST'])
@@ -42,6 +46,7 @@ def callback():
         abort(400)
 
     return 'OK'
+
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
@@ -62,7 +67,6 @@ def message_text(event):
 
         flex = setCarousel(data)
 
-        from Resource.reply import SetMenuMessage_Object , send_flex
 
         flex = SetMenuMessage_Object(flex)
         send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
@@ -72,7 +76,6 @@ def message_text(event):
         text = TextSendMessage(text='ท่านได้ทำการเลือกเมนู เช็คข่าวสาร') #setup text message
         
         from Resource.FlexMessage import news_setbubble 
-        from Resource.reply import SetMenuMessage_Object , send_flex
         from Resource.GetNews import get_cnn_news
 
         data = get_cnn_news()
@@ -88,42 +91,48 @@ def message_text(event):
     ### กรณีเข้ามาเอาบัตรนักเรียน
     elif 'บัตรนักเรียน' in text_fromUser :
         uid = event.source.user_id
+        found = False
         for i in Card:
-            if str(Card[i]['uid']) == str(uid):
+            if i['uid'] == str(uid):
                 from MessageTemplate.Imgmap import GetStudentCard
-                from Resource.reply import SetMenuMessage_Object , send_flex
-                flex = SetMenuMessage_Object(GetStudentCard(Card[i]['courses']))
+                flex = SetMenuMessage_Object(GetStudentCard(i['courses']))
                 send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
-            
-            else:
-                text = TemplateSendMessage(text='กรุณาสมัคร/ลงทะเบียนคลาสเรียน กดเมนูด้านล่างเพื่อลงทะเบียน')
-                res = line_bot_api.reply_message(Reply_token,messages=text)
+                found = True
+                break
+                ### found หาเจอแล้ว
 
+        if found is False:
+            text = TextSendMessage(text='กรุณาสมัคร/ลงทะเบียนคลาสเรียน กดเมนูด้านล่างเพื่อลงทะเบียน').as_json_dict()
+            from MessageTemplate.Imgmap import PleaseRegister
+            msg = PleaseRegister()
+            flex = SetMenuMessage_Object([text,msg])
+            send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
 
 
     else:
+        
         message = '' ### message ที่เราจะส่งกลับไปให้ยูสเสอ
+        text = []
+        user_data = None
+
         from dialogflow_uncle import detect_intent_texts
         project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
         session_id = event.source.user_id  ## get user id
         message = detect_intent_texts(project_id,session_id,text_fromUser,'th')
         
-        text = []
-        user_data = None
 
         for i in message['fulfillment_messages']:### เพิ่มจากในคลิบ
             txt = TextSendMessage(text=i)### เพิ่มจากในคลิบ
             text.append(txt)### เพิ่มจากในคลิบ
 
         ### sumarize message
-        if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes' or 'บัตรนักเรียน' in text_fromUser and askforCard[session_id] is None :
+        if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes':
             from google.protobuf.json_format import MessageToDict
             data = message['parameters']
             data = MessageToDict(data)
-            # print(data)
+
 
             from MessageTemplate.Imgmap import GetStudentCard
-            from Resource.reply import SetMenuMessage_Object , send_flex
 
 
             ####เนื้องจากการส่งข้อความแบบ flex2019 SDK python ยังไม่รองรับทำให้เราต้องกลับมาส่งแบบ manual
@@ -143,6 +152,8 @@ def message_text(event):
                 'courses':data['courses']
             }
             Card.append(data)
+
+            print(Card)
         
 
 
@@ -174,6 +185,8 @@ def message_text(event):
             from MessageTemplate.Imgmap import selectTime
             msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
             text.append(msg)
+
+            
         
         res = line_bot_api.reply_message(Reply_token,messages=text)
         print(res)
