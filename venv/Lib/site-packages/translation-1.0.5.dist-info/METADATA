@@ -1,0 +1,13 @@
+Metadata-Version: 2.0
+Name: translation
+Version: 1.0.5
+Summary: A translation package
+Home-page: https://github.com/littlecodersh/translation
+Author: LittleCoder
+Author-email: i7meavnktqegm1b@qq.com
+License: MIT
+Requires-Dist: requests
+
+translation
+
+

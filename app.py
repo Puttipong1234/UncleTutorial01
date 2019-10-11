@@ -79,14 +79,17 @@ def message_text(event):
         from Resource.GetNews import get_cnn_news
 
         data = get_cnn_news()
+        print(data)
         flex = news_setbubble(data['title'],data['description'],data['url'],data['image_url'])
         
         text = TextSendMessage(text='รายงานข่าวสารสำหรับ CNN ล่าสุด').as_json_dict()
 
         msg = SetMenuMessage_Object([text,flex])
 
-        send_flex(Reply_token,file_data = msg,bot_access_key = channel_access_token)
-    
+        r = send_flex(Reply_token,file_data = msg,bot_access_key = channel_access_token)
+        print(r.content)
+
+
     elif 'บัตรสมาชิก' in text_fromUser:
         text = TextSendMessage(text='กรุณาแสดงบัตรให้แก่สตาฟ').as_json_dict()
         from MessageTemplate.Imgmap import MemberCard , confirmRegis
@@ -133,8 +136,39 @@ def message_text(event):
             txt = TextSendMessage(text=i)### เพิ่มจากในคลิบ
             text.append(txt)### เพิ่มจากในคลิบ
 
+        
+
+
+        
+        ## adding imagemap message เรียนอะไร
+        if message['action'] == 'Uncleregister':
+            from MessageTemplate.Imgmap import selectCourse
+            imagemap = Base.get_or_new_from_json_dict(selectCourse(),ImagemapSendMessage)
+            text.append(imagemap)
+            ### prepare imagemap message to send 
+
+        #### เรียนที่ไหน
+        elif message['action'] == 'Uncleregister.Uncleregister-custom':
+            from MessageTemplate.Imgmap import selectWhere
+            imagemap = Base.get_or_new_from_json_dict(selectWhere(),ImagemapSendMessage)
+            text.append(imagemap)
+            ### prepare Imagemap message to send
+
+        ### ให้ยูสเซอลงเวลา
+        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom':
+            from MessageTemplate.Imgmap import selectTime
+            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
+            text.append(msg)
+
+        #### confirm message
+        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom':
+            from MessageTemplate.Imgmap import confirmRegis
+            msg = Base.get_or_new_from_json_dict(confirmRegis(),TemplateSendMessage)
+            text.append(msg)
+        
+
         ### sumarize message
-        if message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes':
+        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom.Uncleregister-courses-where-when-yes':
             from google.protobuf.json_format import MessageToDict
             data = message['parameters']
             data = MessageToDict(data)
@@ -162,42 +196,42 @@ def message_text(event):
             Card.append(data)
 
             print(Card)
-        
 
-
+        #### กรณีบอท ตอบคำถามกลับไป
         
-        ## adding imagemap message
-        elif message['action'] == 'Uncleregister':
-            from MessageTemplate.Imgmap import selectCourse
-            imagemap = Base.get_or_new_from_json_dict(selectCourse(),ImagemapSendMessage)
-            text.append(imagemap)
-            ### prepare imagemap message to send 
+        elif message['action'] == 'BotChallenge.BotChallenge-fallback':
+            from MessageTemplate.Imgmap import AnwserMsg
 
-        elif message['action'] == 'Uncleregister.Uncleregister-custom':
-            from MessageTemplate.Imgmap import selectWhere
-            imagemap = Base.get_or_new_from_json_dict(selectWhere(),ImagemapSendMessage)
-            text.append(imagemap)
-            ### prepare Imagemap message to send
+            from Resource.wolf import search_wiki
 
-        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom':
-            from MessageTemplate.Imgmap import selectTime
-            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
-            text.append(msg)
-        
-        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom':
-            from MessageTemplate.Imgmap import selectTime
-            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
-            text.append(msg)
-        
-        elif message['action'] == 'Uncleregister.Uncleregister-custom.Uncleregister-courses-custom.Uncleregister-courses-where-custom':
-            from MessageTemplate.Imgmap import selectTime
-            msg = Base.get_or_new_from_json_dict(selectTime(),TemplateSendMessage)
-            text.append(msg)
+            result = search_wiki(text_fromUser)
+
+            ### set msg + answer
+            Flex_Ans = AnwserMsg(text_fromUser,result)
+
+            ### set quick reply
+            qbtn = QuickReplyButton(image_url='https://cdn0.iconfinder.com/data/icons/online-education-butterscotch-vol-2/512/Questions_And_Answers-512.png'
+            ,action=MessageAction('หยุดถาม','หยุดถาม'))
+            q = QuickReply(items=[qbtn])
+
+            ### set text as json
+            new_text1 = TextSendMessage(text='ลุงขอหาแปรป...').as_json_dict()
+            new_text2 = TextSendMessage(text='อยากถามต่อไหม ถ้าไม่... กดปุ่ม หยุดถามได้เลยจร้า',quick_reply=q).as_json_dict()
+
+            ### send msg with quick reply
+            flex = SetMenuMessage_Object(Message_data=[new_text1,Flex_Ans,new_text2])
+
+            r = send_flex(Reply_token,file_data = flex,bot_access_key = channel_access_token)
+            print(r.content)
 
             
+        print(message['action'])
+
+        ### ตอบตามที่ dialogflow ส่งกลับมาให้
+        line_bot_api.reply_message(Reply_token,messages=text)
+
         
-        res = line_bot_api.reply_message(Reply_token,messages=text)
-        print(res)
+        
 
 
 

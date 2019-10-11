@@ -1,12 +1,17 @@
 import wolframalpha
 import wikipedia
 import requests
+from translation import google
+
 
 appId = 'APER4E-58XJGHAVAK'
 client = wolframalpha.Client(appId)
 
+
 # method that search wikipedia... 
 def search_wiki(keyword=''):
+      
+  keyword=google(keyword, dst = 'en')
   # running the query
   searchResults = wikipedia.search(keyword)
   # If there is no result, print no result
@@ -21,7 +26,8 @@ def search_wiki(keyword=''):
   
   wikiTitle = page.title.encode('utf-8')
   wikiSummary = page.summary.encode('utf-8')
-  return (wikiSummary.decode("utf-8")[0:250] + '......')
+  res=google(wikiSummary, dst = 'th')
+  return (res[0:180] + '......')
     
 
 def search(text=''):

@@ -1050,3 +1050,115 @@ def MemberCard():
   msg['contents'] = bubble
 
   return msg
+
+##### answer questions
+def AnwserMsg(question,Anwser):
+  bubble = {
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "size": "kilo",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "In Session : ถามตอบ",
+            "color": "#ffffff",
+            "align": "start",
+            "size": "md",
+            "gravity": "center"
+          },
+          {
+            "type": "text",
+            "text": "คำถาม : {}".format(question),
+            "color": "#ffffff",
+            "align": "start",
+            "size": "md",
+            "gravity": "center",
+            "margin": "lg",
+            "wrap": True
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "width": "10%",
+                "backgroundColor": "#7D51E4",
+                "height": "6px"
+              }
+            ],
+            "backgroundColor": "#9FD8E36E",
+            "height": "6px",
+            "margin": "sm"
+          }
+        ],
+        "backgroundColor": "#A17DF5",
+        "paddingTop": "19px",
+        "paddingAll": "12px",
+        "paddingBottom": "16px"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ผมขอตอบว่า....",
+                "color": "#000000",
+                "size": "lg",
+                "wrap": True
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": Anwser,
+                "color": "#636363",
+                "size": "sm",
+                "wrap": True
+              }
+            ],
+            "flex": 1
+          }
+        ],
+        "spacing": "md",
+        "paddingAll": "12px"
+      },
+      "styles": {
+        "footer": {
+          "separator": False
+        }
+      }
+    }
+  ]
+}
+
+  msg = {
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {}
+    }
+
+  msg['contents'] = bubble
+
+  return msg

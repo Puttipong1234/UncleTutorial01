@@ -72,15 +72,15 @@ def PushMessage(userid, TextMessage, Line_Access_Token):
 
 
 
-def SetMenuMessage_Object(Message_data,Quick_Reply = False):
+def SetMenuMessage_Object(Message_data,Quick_Reply = None):
     file_data = {"replyToken":'', "messages": []}
 
     if type(Message_data) is list:
         for message in Message_data:
-            data = file_data['messages'].append(message)
+            file_data['messages'].append(message)
 
     else :
-        data = file_data['messages'].append(Message_data)
+        file_data['messages'].append(Message_data)
         
     return file_data
 
