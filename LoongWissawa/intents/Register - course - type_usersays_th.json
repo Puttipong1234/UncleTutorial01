@@ -1,0 +1,38 @@
+[
+  {
+    "id": "c762b46f-dcfa-4bc7-9193-999fcfae965d",
+    "data": [
+      {
+        "text": "สนใจ",
+        "userDefined": false
+      },
+      {
+        "text": "เรียนคอสสด",
+        "alias": "Type",
+        "meta": "@Type",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "25fef8de-2ea8-42cb-9946-0b0513935a4b",
+    "data": [
+      {
+        "text": "สนใจ",
+        "userDefined": false
+      },
+      {
+        "text": "เรียนออนไลน์",
+        "alias": "Type",
+        "meta": "@Type",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

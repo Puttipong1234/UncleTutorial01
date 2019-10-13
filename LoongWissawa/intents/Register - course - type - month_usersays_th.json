@@ -1,0 +1,20 @@
+[
+  {
+    "id": "eb2c63c4-0a74-40f9-89d6-5f148629c059",
+    "data": [
+      {
+        "text": "รอบ",
+        "userDefined": false
+      },
+      {
+        "text": "เดือนตุลาคม",
+        "alias": "month",
+        "meta": "@month",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

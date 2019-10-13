@@ -1,0 +1,79 @@
+{
+  "id": "2735329f-1ca1-47eb-ac68-0a33958da714",
+  "parentId": "53266301-1bdf-4c86-89e7-16b0da18c184",
+  "rootParentId": "6f37b5a0-9ce9-4246-8a4f-c90c866c12db",
+  "name": "Register - course - type",
+  "auto": true,
+  "contexts": [
+    "Register-course-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "selecttype",
+      "affectedContexts": [
+        {
+          "name": "Register-course-type-followup",
+          "parameters": {},
+          "lifespan": 5
+        }
+      ],
+      "parameters": [
+        {
+          "id": "7b12ef77-3467-479b-a9b8-e821a708d8c7",
+          "required": true,
+          "dataType": "@Type",
+          "name": "Type",
+          "value": "$Type",
+          "prompts": [
+            {
+              "lang": "th",
+              "value": "กรุณาระบุประเภทการเรียน (คอสออนไลน์/คอสเรียนสด)"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "378dcb98-76e3-48a6-824c-9e6c50fd9218",
+          "required": false,
+          "dataType": "@courses",
+          "name": "courses",
+          "value": "#Register-course-followup.courses",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "ลูกค้าสนใจคอส#Register-course-followup.courses $Type เรียนรอบเดือนไหนดีครับ"
+        },
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "กรุณาระบุเดือนที่ต้องการลงทะเบียน"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

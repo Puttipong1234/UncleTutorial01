@@ -1,0 +1,46 @@
+{
+  "id": "6f37b5a0-9ce9-4246-8a4f-c90c866c12db",
+  "name": "Register",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "Register-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": [
+            "สนใจเป็นคอสไหนดีครับ",
+            "เรียนคอสไหนดีครับ"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "สอบถามได้เลยนะครับ"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

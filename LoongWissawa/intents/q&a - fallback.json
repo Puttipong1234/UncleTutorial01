@@ -1,0 +1,36 @@
+{
+  "id": "a1d8e7c4-83e5-4a13-99cb-a06ea6d9af43",
+  "parentId": "29b20b8c-f835-44be-9922-e35e2c24f0f9",
+  "rootParentId": "29b20b8c-f835-44be-9922-e35e2c24f0f9",
+  "name": "q\u0026a - fallback",
+  "auto": false,
+  "contexts": [
+    "qa-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "qa.qa-fallback",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "น้องบอทขอตอบว่า......."
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": true,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

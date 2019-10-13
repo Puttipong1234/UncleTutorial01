@@ -1,0 +1,91 @@
+{
+  "id": "8aa57a0c-c140-4e87-ae7d-717a18e18ae4",
+  "parentId": "2735329f-1ca1-47eb-ac68-0a33958da714",
+  "rootParentId": "6f37b5a0-9ce9-4246-8a4f-c90c866c12db",
+  "name": "Register - course - type - month",
+  "auto": true,
+  "contexts": [
+    "Register-course-type-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "selectmonth",
+      "affectedContexts": [
+        {
+          "name": "Register-course-type-month-followup",
+          "parameters": {},
+          "lifespan": 4
+        }
+      ],
+      "parameters": [
+        {
+          "id": "54b5b57f-45ce-403c-9d09-84d2f16b8a39",
+          "required": true,
+          "dataType": "@month",
+          "name": "month",
+          "value": "$month",
+          "prompts": [
+            {
+              "lang": "th",
+              "value": "กรุณาระบุรอบเรียนให้ถูกต้อง"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "af8f469e-9c55-4bb1-aa88-f3430cd42f85",
+          "required": false,
+          "dataType": "@Type",
+          "name": "Type",
+          "value": "#Register-course-type-followup.Type",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "7f8aa3f7-358d-4685-9e57-334cb09899fe",
+          "required": false,
+          "dataType": "@courses",
+          "name": "courses",
+          "value": "#Register-course-followup.courses",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "สรุปว่าลูกค้าสนใจเป็นคอส #Register-course-followup.courses #Register-course-type-followup.Type    รอบ $month"
+        },
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "ใช่ไหมครับ"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

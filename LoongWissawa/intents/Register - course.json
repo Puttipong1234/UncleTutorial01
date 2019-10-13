@@ -1,0 +1,64 @@
+{
+  "id": "53266301-1bdf-4c86-89e7-16b0da18c184",
+  "parentId": "6f37b5a0-9ce9-4246-8a4f-c90c866c12db",
+  "rootParentId": "6f37b5a0-9ce9-4246-8a4f-c90c866c12db",
+  "name": "Register - course",
+  "auto": true,
+  "contexts": [
+    "Register-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "selectcourses",
+      "affectedContexts": [
+        {
+          "name": "Register-course-followup",
+          "parameters": {},
+          "lifespan": 10
+        }
+      ],
+      "parameters": [
+        {
+          "id": "b16930ed-a25e-4a50-a822-832f73d87281",
+          "required": true,
+          "dataType": "@courses",
+          "name": "courses",
+          "value": "$courses",
+          "prompts": [
+            {
+              "lang": "th",
+              "value": "สรุปสนใจเป็นคอสไหนดีครับ"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": [
+            "สนใจเรียนคอสสด หรือ เรียนออนไลน์ครับ",
+            "เลือกเรียนสด หรือออนไลน์ดีครับ"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

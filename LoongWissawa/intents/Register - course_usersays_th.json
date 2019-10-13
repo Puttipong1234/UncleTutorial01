@@ -1,0 +1,60 @@
+[
+  {
+    "id": "c9aa7378-4f34-4cb1-96cf-db380674d8c7",
+    "data": [
+      {
+        "text": "สนใจ",
+        "userDefined": false
+      },
+      {
+        "text": "ไลน์แชทบอท",
+        "alias": "courses",
+        "meta": "@courses",
+        "userDefined": true
+      },
+      {
+        "text": "ครับ",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d085cd8b-bf38-41e0-8b4f-a946f18d09c9",
+    "data": [
+      {
+        "text": "สนใจ",
+        "userDefined": false
+      },
+      {
+        "text": "เบสิคไพทอน",
+        "alias": "courses",
+        "meta": "@courses",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "81dd3f66-af3e-4e39-8fd8-cc30e6ef2334",
+    "data": [
+      {
+        "text": "สนใจคอสเรียน",
+        "userDefined": false
+      },
+      {
+        "text": "เบสิคไพทอน",
+        "alias": "courses",
+        "meta": "@courses",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

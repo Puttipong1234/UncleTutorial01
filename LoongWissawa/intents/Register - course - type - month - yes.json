@@ -1,0 +1,55 @@
+{
+  "id": "9f3faddd-33d8-46bd-a6cb-9531062121b8",
+  "parentId": "8aa57a0c-c140-4e87-ae7d-717a18e18ae4",
+  "rootParentId": "6f37b5a0-9ce9-4246-8a4f-c90c866c12db",
+  "name": "Register - course - type - month - yes",
+  "auto": true,
+  "contexts": [
+    "Register-course-type-month-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "confirm",
+      "affectedContexts": [
+        {
+          "name": "Register-course-type-month-yes-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [
+        {
+          "id": "5a1ebb62-7fd4-4c45-9022-ca2767bb2812",
+          "required": false,
+          "dataType": "@courses",
+          "name": "course",
+          "value": "#Register-course-followup.courses",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "การลงทะเบียนเสร็จสิ้น กรุณาตรวจสอบบัตรเข้าเรียนให้ถูกต้อง หากพบข้อผิดพลาด กรุณาแจ้งให้กับทีมแอดมินผ่านช่องทาง ......"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

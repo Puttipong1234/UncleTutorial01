@@ -1,0 +1,36 @@
+{
+  "id": "927aa752-fb32-42b8-a219-d1ca8d7a4f0d",
+  "parentId": "29b20b8c-f835-44be-9922-e35e2c24f0f9",
+  "rootParentId": "29b20b8c-f835-44be-9922-e35e2c24f0f9",
+  "name": "q\u0026a - stop",
+  "auto": true,
+  "contexts": [
+    "qa-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "qa.qa-custom",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "th",
+          "condition": "",
+          "speech": "แล้วกลับมาถามใหม่นะครับ :\" ]"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

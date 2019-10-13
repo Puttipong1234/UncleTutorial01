@@ -1,0 +1,46 @@
+[
+  {
+    "value": "เบสิคไพทอน",
+    "synonyms": [
+      "เบสิคไพทอน",
+      "พื้นฐานไพทอน",
+      "BasicPython",
+      "PythonBasic"
+    ]
+  },
+  {
+    "value": "LineChatbot",
+    "synonyms": [
+      "LineChatbot",
+      "เขียนแชทบอท",
+      "เขียนแชทบอทด้วยไพทอน",
+      "ไลน์แชทบอท",
+      "บอทไลน์"
+    ]
+  },
+  {
+    "value": "Automatebot",
+    "synonyms": [
+      "Automatebot",
+      "สร้างบอทอัตโนมัต",
+      "บอทออโตเมต"
+    ]
+  },
+  {
+    "value": "Adruino",
+    "synonyms": [
+      "Adruino",
+      "IOT",
+      "อดรูอิโน่"
+    ]
+  },
+  {
+    "value": "WebDjango",
+    "synonyms": [
+      "WebDjango",
+      "เขียนเว็บ",
+      "django",
+      "ไพทอนเขียนเว็บ"
+    ]
+  }
+]
