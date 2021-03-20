@@ -24,7 +24,7 @@ idna==2.8
 inflect==2.1.0
 itsdangerous==1.1.0
 jaraco.itertools==4.4.2
-Jinja2==2.10.1
+Jinja2==2.11.3
 line-bot-sdk==1.12.1
 MarkupSafe==1.1.1
 more-itertools==7.2.0
